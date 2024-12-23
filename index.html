@@ -26,12 +26,12 @@
       <div class="">Convert <span id="convertFromTxt"></span> to <span id="convertToTxt"></span></div>
       <div class="convertion-wrapper">
         <div class="selection-wrapper">
-          <select name="unitFrom" id="unitFrom">
+          <select name="tempUnitFrom" id="tempUnitFrom">
             <option value="Celcius" selected>&deg;C</option>
             <option value="Fahrenheit">&deg;F</option>
             <option value="Kelvin">K</option>
           </select>
-          <select name="unitTo" id="unitTo">
+          <select name="tempUnitTo" id="tempUnitTo">
             <option value="Celcius">&deg;C</option>
             <option value="Fahrenheit" selected>&deg;F</option>
             <option value="Kelvin">K</option>
@@ -40,10 +40,7 @@
         <input type="text" name="userInput" id="userInput" onkeyup="calculate(this.value)">
       </div>
     </div>
-    <div id="result">0&deg;C &equals; 32.00&deg;F
-      <!-- <span id="resultFrom">0</span><span id="resultUnitFrom">&deg;C</span> &equals; 
-      <span id ="resultTo">32</span><span id="resultUnitTo">&deg;F</span> -->
-    </div>
+    <div id="result">0&deg;C &equals; 32.00&deg;F</div>
     <hr>
     <div id="solution"></div>
   </main>

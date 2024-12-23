@@ -1,8 +1,9 @@
-const tempUnitFrom = document.getElementById("unitFrom");
-const tempUnitTo = document.getElementById("unitTo");
+const tempUnitFrom = document.getElementById("tempUnitFrom");
+const tempUnitTo = document.getElementById("tempUnitTo");
 const result = document.getElementById("result");
 const fromTxt = document.getElementById("convertFromTxt");
 const toTxt = document.getElementById("convertToTxt");
+const userInput = document.getElementById("userInput");
 
 const convert = (num, from, to) => {
   let result = "";
@@ -36,59 +37,40 @@ const convert = (num, from, to) => {
   return result;
 }
 
-const updateUI = () => {
-  
+const updateOutputTxt = (from, to, num) => {
+  const units = {
+
+  }
+  return `${userInput.value}&deg;${from} &equals; ${num}&deg;${to}`;
 }
 
+const updateConversionTxt = (from, to) => {
+  fromTxt.innerText = from;
+  toTxt.innerText = to;
+  calculate(userInput);
+}
+
+const onDropdownChange = () => {
+  const tempFrom = tempUnitFrom.value;
+  const tempTo = tempUnitTo.value;
+  updateConversionTxt(tempFrom, tempTo);
+}
+
+tempUnitFrom.addEventListener("change", onDropdownChange);
+tempUnitTo.addEventListener("change", onDropdownChange);
+
 const calculate = (value) => {
+  const noSpace = value.replace(/[^\d.]/g, ""); //remove whitespaces and non-numerical characters
+  const parsedInt = parseInt(noSpace);
   const from = tempUnitFrom.value;
   const to = tempUnitTo.value;
 
-  if (from === "Celcius") {
-    if (to === "Fahrenheit") {
-      fromTxt.innerText = "Celcius";
-      toTxt.innerText = "Fahrenheit";
-    } else if (to === "Kelvin") {
-      fromTxt.innerText = "Celcius";
-      toTxt.innerText = "Kelvin";
-    } else {
-      fromTxt.innerText = "Celcius";
-      toTxt.innerText = "Celcius";
-    }
-  } else if (from === "Fahrenheit") {
-    if (to === "Celcius") {
-      fromTxt.innerText = "Fahrenheit";
-      toTxt.innerText = "Celcius";
-    } else if (to === "Kelvin") {
-      fromTxt.innerText = "Fahrenheit";
-      toTxt.innerText = "Kelvin";
-    } else {
-      fromTxt.innerText = "Fahrenheit";
-      toTxt.innerText = "Fahrenheit";
-    }
-  } else if (from === "Kelvin") {
-    if (to === "Celcius") {
-      fromTxt.innerText = "Kelvin";
-      toTxt.innerText = "Celcius";
-    } else if (to === "Fahrenheit") {
-      fromTxt.innerText = "Kelvin";
-      toTxt.innerText = "Fahrenheit";
-    } else {
-      fromTxt.innerText = "Kelvin";
-      toTxt.innerText = "Kelvin";
-    }
-  }
-
-  const noSpace = value.replace(/[^\d]/g, ""); //remove whitespaces and non-numerical characters
-  const parsedInt = parseInt(noSpace);
-
   if (!parsedInt || isNaN(parsedInt)) {
-    result.innerHTML = `0&deg;C &equals; 32.00&deg;F`;
+    result.innerHTML = updateOutputTxt(from, to, convert(parsedInt, from, to));
     return;
   } else {
-    document.getElementById("result").innerHTML = convert(parsedInt, from, to);
-    // updateUI();
+    document.getElementById("result").innerHTML = updateOutputTxt(from, to, convert(parsedInt, from, to));
   }
 }
 
-document.addEventListener("DOMContentLoaded", calculate);
+document.addEventListener("DOMContentLoaded", onDropdownChange);
