@@ -5,7 +5,7 @@ const fromTxt = document.getElementById("convertFromTxt");
 const toTxt = document.getElementById("convertToTxt");
 const userInput = document.getElementById("userInput");
 
-const convert = (num, from, to) => {
+const convert = (num, from, to) => { //converts the num to the temp unit assigned
   let result = "";
 
   if (from === "Celcius") {
@@ -34,31 +34,39 @@ const convert = (num, from, to) => {
     }
   }
 
-  return result;
+  return result.toFixed(2);
 }
 
-const updateOutputTxt = (from, to, num) => {
+const updateOutputTxt = (from, to, num) => { //updates the output text
   const units = {
-
+    "Celcius": "&deg;C",
+    "Fahrenheit": "&deg;F",
+    "Kelvin": "K"
   }
-  return `${userInput.value}&deg;${from} &equals; ${num}&deg;${to}`;
+  const noSpace = userInput.value.replace(/[^\d.]/g, "");
+  const fromUnit = units[from];
+  const toUnit = units[to];
+
+  return `${noSpace}${fromUnit} &equals; ${num}${toUnit}`;
 }
 
-const updateConversionTxt = (from, to) => {
+const updateConversionTxt = (from, to) => { //updates the text above the conversion
   fromTxt.innerText = from;
   toTxt.innerText = to;
   calculate(userInput);
 }
 
-const onDropdownChange = () => {
+const onDropdownChange = () => { //executes if user change the option on the select element
   const tempFrom = tempUnitFrom.value;
   const tempTo = tempUnitTo.value;
   updateConversionTxt(tempFrom, tempTo);
 }
 
+//checks changes on the select element
 tempUnitFrom.addEventListener("change", onDropdownChange);
 tempUnitTo.addEventListener("change", onDropdownChange);
 
+//executes when user input a number
 const calculate = (value) => {
   const noSpace = value.replace(/[^\d.]/g, ""); //remove whitespaces and non-numerical characters
   const parsedInt = parseInt(noSpace);
@@ -73,4 +81,4 @@ const calculate = (value) => {
   }
 }
 
-document.addEventListener("DOMContentLoaded", onDropdownChange);
+document.addEventListener("DOMContentLoaded", onDropdownChange); //run once on page onload
