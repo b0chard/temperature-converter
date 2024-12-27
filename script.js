@@ -74,8 +74,7 @@ const calculate = (value) => {
   const to = tempUnitTo.value;
 
   if (!parsedInt || isNaN(parsedInt)) {
-    result.innerHTML = updateOutputTxt(from, to, convert(parsedInt, from, to));
-    return;
+    return result.innerHTML = updateOutputTxt(0, 0, convert(parsedInt, 0, 0));
   } else {
     document.getElementById("result").innerHTML = updateOutputTxt(from, to, convert(parsedInt, from, to));
   }
